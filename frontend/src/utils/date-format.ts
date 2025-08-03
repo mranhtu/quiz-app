@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const dateFormat = {
     toDateString(date: Date) {
         const offset = date.getTimezoneOffset();
@@ -15,6 +17,22 @@ const dateFormat = {
         const isoString = utcDate.toISOString();
         return isoString.substring(0, 16);
     },
+
+    formatDHMY(data: any) {
+        if (data) {
+            return moment(data).format('DD/MM/YYYY HH:mm')
+        } else {
+            return '';
+        }
+    },
+
+    formatDMY(data: any) {
+        if (data) {
+            return moment(data).format('DD/MM/YYYY')
+        } else {
+            return '';
+        }
+    }
 };
 
 export default Object.freeze(dateFormat);

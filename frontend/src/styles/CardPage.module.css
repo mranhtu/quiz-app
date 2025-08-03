@@ -59,7 +59,7 @@
 }
 
 .card {
-    flex: 0 0 calc(25% - 15px);
+    flex: 0 0 calc(33% - 15px);
     min-width: 160px;
     height: 150px;
     display: flex;
@@ -81,12 +81,17 @@
 }
 
 .cardTop>.content {
-    font-size: 16px;
+    font-size: 24px;
     display: -webkit-box;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.subTitle {
+    color: #c5c6cc;
+    padding-top: 8px;
 }
 
 .card>.cardBottom {
@@ -138,4 +143,8 @@
     }
 }
 
-@media (width<=800px) {}
+@media (width<=800px) {
+    .card {
+        flex: 0 0 100%;
+    }
+}

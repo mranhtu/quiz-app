@@ -3,7 +3,6 @@ import styles from './styles/Subject.module.css';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '~api/subject';
@@ -18,6 +17,9 @@ import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import CreateChapter from './components/CreateChapter';
 import ViewChapter from './components/ViewChapter';
+import {Button} from "antd";
+import {MdOutlineDeleteOutline} from "react-icons/md";
+import {BiEdit} from "react-icons/bi";
 
 export default function Subject() {
     const { id } = useParams();
@@ -164,14 +166,14 @@ export default function Subject() {
                                                 }
                                                 {
                                                     permissions.has('subject_delete') ?
-                                                        <button
-                                                            type='button'
-                                                            onClick={() => {
-                                                                setShowDeletePopUp(true);
-                                                            }}
-                                                            className={appStyles.actionItemWhiteBorderRed}>
-                                                            <MdDeleteOutline /> {language?.delete}
-                                                        </button>
+                                                        <Button color="danger" variant="outlined"
+                                                                className={appStyles.actionItemWhiteBorderRed}
+                                                                icon={<MdOutlineDeleteOutline />}
+                                                                onClick={() => {
+                                                                    setShowDeletePopUp(true);
+                                                                }}>
+                                                            {language?.delete}
+                                                        </Button>
                                                         : null
                                                 }
                                             </div>
@@ -182,19 +184,39 @@ export default function Subject() {
                             <div className={styles.header}>
                                 <h2 className={styles.title}>{language?.chapters}</h2>
                             </div>
-                            {
-                                permissions.has('subject_update') ?
-                                    <div className={appStyles.actionBar}>
-                                        <div className={appStyles.actionItem}
-                                            onClick={() => {
-                                                setShowCreateChapterPopUp(true);
-                                            }}
-                                        >
-                                            <RiAddFill /> {language?.add}
-                                        </div>
-                                    </div>
-                                    : null
-                            }
+                            <div className={styles.headerChapter}>
+                                {
+                                    permissions.has('subject_update') ?
+                                        <button className={
+                                            css(
+                                                appStyles.actionItem,
+                                                isPending ? appStyles.buttonSubmitting : ''
+                                            )}
+                                                onClick={() => {
+                                                    setShowCreateChapterPopUp(true);
+                                                }}
+                                        ><RiAddFill /> {language?.add}</button>
+                                        : null
+                                }
+                                {
+                                    permissions.has('question_view') ?
+                                        <Link
+                                            to='questions'
+                                            state={queryData.data}
+                                            className={styles.header}>
+                                            <button className={
+                                                css(
+                                                    appStyles.actionItem,
+                                                    isPending ? appStyles.buttonSubmitting : '',
+                                                    styles.buttonLink
+                                                )
+                                            }
+                                            >{language?.managerQuestion}</button>
+                                        </Link>
+                                        : null
+                                }
+                            </div>
+
                             <div className={styles.chaptersContainer}>
                                 {
                                     queryData.data.chapters.sort((a, b) =>
@@ -205,34 +227,30 @@ export default function Subject() {
                                                 <div
                                                     key={`chapter-${chapter.id}`}
                                                     className={css(appStyles.dashboardCard, styles.card)}
-                                                    onClick={() => {
-                                                        setCurrentChapter(chapter);
-                                                        setShowViewChapterPopUp(true);
-                                                    }}
                                                 >
                                                     <div className={styles.cardTop}>
                                                         {`${chapter.chapterNumber}. ${chapter.name}`}
                                                     </div>
-                                                    <div className={styles.cardBottom}>
-                                                        {`${chapter.questionsCount} ${language?.questions.toLocaleLowerCase()}`}
+                                                    {/*<span className={styles.subTitle}>12/07/2025</span>*/}
+                                                    <div className="flex justify-between items-center">
+                                                        <div className={styles.cardBottom}>
+                                                            <span>{language?.questions}</span>
+                                                            <span className={styles.countQuestion + ' ml-2'}>{` ${chapter.questionsCount}`}</span>
+                                                        </div>
+                                                        <BiEdit className="cursor-pointer text-lg"
+                                                                onClick={() => {
+                                                                    setCurrentChapter(chapter);
+                                                                    setShowViewChapterPopUp(true);
+                                                                }}>
+                                                        </BiEdit>
                                                     </div>
+
                                                 </div>
                                             );
                                         })
                                 }
                             </div>
-                            {
-                                permissions.has('question_view') ?
-                                    <Link
-                                        to='questions'
-                                        state={queryData.data}
-                                        className={styles.header}>
-                                        <h2 className={styles.title}>
-                                            {language?.questions}
-                                        </h2>
-                                    </Link>
-                                    : null
-                            }
+
                         </> : null
                 }
             </main>

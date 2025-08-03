@@ -8,7 +8,7 @@
 ## Prerequisites
 
 - Nodejs (only for Dev)
-- PHP 8.2 or later
+- PHP 8.2 or later, Composer
 - MySQL / MariaDB
 
 ## Installation
@@ -42,14 +42,29 @@ DEMO=true
 DEMO_PASSWORD="123456789"
 ```
 
-- Create database, seed data
+- Chạy lần lượt các lệnh sau Create database, seed data
 
 ```console
+composer install --ignore-platform-reqs
 php artisan migrate
 ```
 
 ```console
 php artisan db:seed
+php artisan key:generate
+php artisan config:clear
+```
+
+- chạy custom port và ip
+```console
+php artisan serve --host 192.168.1.99 --port 3001
+hoặc
+php artisan serve
+```
+
+- Tạo acc admin
+```console
+php artisan db:seed --class=AdminSeeder
 ```
 
 - Build
@@ -73,7 +88,7 @@ This project combine both frontend and backend, maybe it some extensions not cor
 ```json
 {
   "Laravel.basePath": "backend",
-  "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+  "typescript.tsdk": "./frontend/node_modules/typescript/lib"
 }
 ```
 

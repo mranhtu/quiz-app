@@ -5,6 +5,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import useAppContext from '~hooks/useAppContext';
 import { Option } from '~models/option';
 import css from '~utils/css';
+import {BiArrowToBottom} from "react-icons/bi";
+import {MdOutlineKeyboardArrowDown} from "react-icons/md";
+import {IoIosArrowDown} from "react-icons/io";
 
 type CustomSelectProps = {
     name?: string;
@@ -63,6 +66,7 @@ export default function CustomSelect({
             }
         >
             <span style={{ opacity: disabled ? 0.7 : 1 }}>{current.label}</span>
+            <IoIosArrowDown className={styles.iconArrow}/>
             <input type='text'
                 name={name}
                 value={current.value}
@@ -80,7 +84,7 @@ export default function CustomSelect({
                                 if (onChange) onChange(option);
                                 setCurrent(option);
                             }}
-                            className={styles.selectItem}>
+                            className={styles.selectItem + ` ${option.value === current.value ? styles.selected : ''}`}>
                             <span>{option.label}</span>
                         </div>
                     );

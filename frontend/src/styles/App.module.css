@@ -138,3 +138,6 @@ label.required::after {
     cursor: default;
     pointer-events: none;
 }
+.w-100 {
+    width: 100%;
+}

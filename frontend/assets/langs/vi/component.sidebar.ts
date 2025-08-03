@@ -1,6 +1,6 @@
 export default {
     dashboard: 'Tổng quan',
-    subjects: 'Môn học',
+    subjects: 'Khoá học',
     courses: 'Khóa học',
     schoolClass: 'Lớp học',
     faculty: 'Khoa',

@@ -71,7 +71,7 @@ export default function Login() {
                         placeholder={language?.password}
                     />
                 </div>
-                <Link className={styles.forgotPassword} to='/auth/forgot-password'>{language?.forgotPassword}</Link>
+                {/*<Link className={styles.forgotPassword} to='/auth/forgot-password'>{language?.forgotPassword}</Link>*/}
                 <div className={styles.wrapInput}>
                     <button
                         ref={buttonRef}

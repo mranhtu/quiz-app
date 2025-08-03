@@ -15,6 +15,7 @@ import ForgotPassword from './pages/Auth/ForgotPassword';
 import Login from './pages/Auth/Login';
 import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
+import './index.css';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Users = lazy(() => import('./pages/Users/Users'));
@@ -49,14 +50,14 @@ const router = createBrowserRouter([
                         path: 'login',
                         element: <Login />
                     },
-                    {
-                        path: 'verify-email',
-                        element: <VerifyEmail />
-                    },
-                    {
-                        path: 'forgot-password',
-                        element: <ForgotPassword />
-                    },
+                    // {
+                    //     path: 'verify-email',
+                    //     element: <VerifyEmail />
+                    // },
+                    // {
+                    //     path: 'forgot-password',
+                    //     element: <ForgotPassword />
+                    // },
                 ]
             },
             {
@@ -227,9 +228,9 @@ export default function App() {
                 richColors
                 closeButton
                 visibleToasts={5}
-                position='bottom-left'
+                position='top-right'
                 toastOptions={{
-                    duration: 3000
+                    duration: 5000
                 }}
             />
             <QueryClientProvider client={queryClient}>

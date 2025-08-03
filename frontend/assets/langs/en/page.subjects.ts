@@ -1,6 +1,6 @@
 export default {
     subjects: 'Subjects',
-    add: 'Add',
+    add: 'Create subject',
     // import: 'Import',
     // export: 'Export',
     // delete: 'Delete',

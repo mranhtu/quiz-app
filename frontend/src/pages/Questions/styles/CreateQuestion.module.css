@@ -1,5 +1,4 @@
 .textareaGroup {
-    flex: 0 0 calc(50% - 5px) !important;
     height: fit-content;
 }
 
@@ -16,4 +15,15 @@
 .textarea {
     resize: vertical;
     min-height: 70px;
+}
+
+.answerItem {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.answerAction {
+    display: flex;
+    gap: 16px;
 }
