@@ -24,6 +24,7 @@ class SubjectController extends Controller
                 $subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->input('search'));
             }
             $subjects = $subjects
+                ->orderBy('created_at', 'desc')
                 ->limit($this->defaultLimit)
                 ->get();
             return Reply::successWithData($subjects, '');

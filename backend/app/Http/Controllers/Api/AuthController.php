@@ -42,9 +42,9 @@ class AuthController extends Controller
             if (!Hash::check($validated['password'], $data->user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
-            if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
-                return Reply::successWithData($data, '');
-            }
+            // if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
+            //     return Reply::successWithData($data, '');
+            // }
             $data->token = $data->user->createToken("{$data->user->role->name} token")->plainTextToken;
             return Reply::successWithData($data, '');
         } catch (\Exception $error) {
