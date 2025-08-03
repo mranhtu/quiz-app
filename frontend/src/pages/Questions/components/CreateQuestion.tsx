@@ -18,6 +18,7 @@ import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
 import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
+import {Button, Checkbox} from "antd";
 
 type CreateQuestionProps = {
     subjectDetail: SubjectDetail;
@@ -149,6 +150,49 @@ export default function CreateQuestion({
                                     name='content'
                                 />
                             </div>
+
+                            {options.map((option, index) => {
+                                return (
+                                    <div
+                                        key={option.key}
+                                        className={css(styles.textareaGroup, globalStyles.wrapItem, globalStyles.textarea)}>
+                                        <div className={styles.wrapLabel}>
+                                            <label className={appStyles.required}>{`${language?.answer} ${index + 1}`}
+                                            </label>
+                                        </div>
+                                        <div className={styles.answerItem}>
+                                            <TextEditor
+                                                name='options[]'
+                                                defaultContent=''
+                                            />
+
+                                            <div className={styles.answerAction}>
+                                                <div style={{width: '100px', paddingTop: '8px'}}>
+                                                    <Checkbox checked={option.key == trueOptionKey}
+                                                              onChange={() => {
+                                                                  setTrueOptionKey(String(option.key));
+                                                              }}>
+                                                        <span>Đáp án</span>
+                                                    </Checkbox>
+                                                </div>
+                                                <Button color="danger"
+                                                        size='large'
+                                                        variant="solid"
+                                                        onClick={() => {
+                                                            if (options.length == 2) {
+                                                                toast.error(language?.deleteOptionError);
+                                                            }
+                                                            else setOptions(options.filter(item => item.key !== option.key));
+                                                        }}
+                                                >
+                                                    <MdDeleteOutline /> {language?.delete}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+
                             <div
                                 className={appStyles.actionBar}>
                                 {
@@ -169,42 +213,6 @@ export default function CreateQuestion({
                                     </div>
                                 }
                             </div>
-                            {options.map((option, index) => {
-                                return (
-                                    <div
-                                        key={option.key}
-                                        className={css(styles.textareaGroup, globalStyles.wrapItem, globalStyles.textarea)}>
-                                        <div className={styles.wrapLabel}>
-                                            <label
-                                                style={{ cursor: 'pointer' }}
-                                                className={appStyles.required}
-                                                onClick={() => {
-                                                    setTrueOptionKey(String(option.key));
-                                                }}
-                                            >{`${language?.answer} ${index + 1}`}</label>
-                                            {
-                                                option.key === trueOptionKey ?
-                                                    <FaRegCircleCheck />
-                                                    : null
-                                            }
-                                        </div>
-                                        <TextEditor
-                                            name='options[]'
-                                            defaultContent=''
-                                        />
-                                        <div
-                                            onClick={() => {
-                                                if (options.length == 2) {
-                                                    toast.error(language?.deleteOptionError);
-                                                }
-                                                else setOptions(options.filter(item => item.key !== option.key));
-                                            }}
-                                            className={appStyles.actionItemWhiteBorderRed}>
-                                            <MdDeleteOutline /> {language?.delete}
-                                        </div>
-                                    </div>
-                                );
-                            })}
                         </div>
                         <div className={globalStyles.actionItems}>
                             <button name='save'

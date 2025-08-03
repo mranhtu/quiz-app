@@ -42,6 +42,9 @@
     height: 90px;
     flex: 0 0 calc((100% / 3) - 10px);
 }
+.wrapItem label {
+    margin-bottom: 8px;
+}
 
 .wrapItem::after {
     content: attr(data-error);
@@ -69,8 +72,8 @@
     height: 50px;
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
-    gap: 10px;
+    justify-content: center;
+    gap: 16px;
 }
 
 .pending {

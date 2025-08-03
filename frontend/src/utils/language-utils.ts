@@ -25,7 +25,7 @@ const divMod = (n: number, m: number): [number, number] => [Math.floor(n / m), n
 // };
 
 // const createDurationFormatter = (locale: string, unitDisplay: 'long' | 'short' | 'narrow' = 'long', separator: string = ' ') => {
-//     const timeUnitFormatter = (unit: 'hour' | 'minute') => 
+//     const timeUnitFormatter = (unit: 'hour' | 'minute') =>
 //         new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
 
 //     const fmtHours = timeUnitFormatter('hour');
@@ -53,7 +53,7 @@ const languageUtils = {
         if (languagesSupported.includes(localLanguage)) return localLanguage;
         const language = navigator.language.includes('en') ? 'en' : navigator.language;
         if (languagesSupported.includes(language)) return language;
-        return 'en';
+        return 'vi';
     },
     setLanguage(value: string) {
         localStorage.setItem(LANG_KEY, value);

@@ -1,6 +1,6 @@
 export default {
     title: 'Kết quả bài thi của @name',
-    subject: 'Môn học',
+    subject: 'Khóc học',
     examName: 'Tên bài thi',
     score: 'Điểm số',
     didNotSubmitted: 'Chưa nộp bài',

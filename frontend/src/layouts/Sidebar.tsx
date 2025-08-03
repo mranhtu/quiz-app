@@ -139,20 +139,18 @@ export default function Sidebar() {
                     );
                 })
             }</ul>
-            <div className={styles.footer}>
-                <div className={styles.links}>
-                    <a target='_blank' href={`${API_HOST}/term`}>{language?.term}</a>
-                    <a target='_blank' href={`${API_HOST}/privacy`}>{language?.privacy}</a>
-                    <a target='_blank' href={`${API_HOST}/security`}>{language?.security}</a>
-                    <a target='_blank' href="https://hoaian2.netlify.app/">{language?.contact}</a>
-                    <a target='_blank' href="https://github.com/HOAIAN2/college-quiz-app">{language?.docs}</a>
-                </div>
-                <div className={styles.appInfos}>
-                    <small>App version: {__APP_VERSION__}</small> <br />
-                    <small>Build date: {__APP_BUILD_DATE__}</small> <br />
-                    <small>&#169; {new Date().getFullYear()} {getMetaContent('author')}</small>
-                </div>
-            </div>
+            {/*<div className={styles.footer}>*/}
+            {/*    <div className={styles.links}>*/}
+            {/*        <a target='_blank' href={`${API_HOST}/term`}>{language?.term}</a>*/}
+            {/*        <a target='_blank' href={`${API_HOST}/privacy`}>{language?.privacy}</a>*/}
+            {/*        <a target='_blank' href={`${API_HOST}/security`}>{language?.security}</a>*/}
+            {/*    </div>*/}
+            {/*    <div className={styles.appInfos}>*/}
+            {/*        <small>App version: {__APP_VERSION__}</small> <br />*/}
+            {/*        <small>Build date: {__APP_BUILD_DATE__}</small> <br />*/}
+            {/*        <small>&#169; {new Date().getFullYear()} </small>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </nav>
     );
 }

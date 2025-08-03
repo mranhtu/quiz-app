@@ -1,6 +1,6 @@
 export default {
-    subjects: 'Môn học',
-    add: 'Thêm',
+    subjects: 'Khoá học',
+    add: 'Thêm mới khoá học',
     // import: 'Nhập',
     // export: 'Xuất',
     // delete: 'Xóa',

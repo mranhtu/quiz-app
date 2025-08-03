@@ -14,6 +14,7 @@ import { UserDetail } from '~models/user';
 import css from '~utils/css';
 import languageUtils from '~utils/language-utils';
 import ViewUser from './ViewUser';
+import {Card, Switch} from "antd";
 
 type UsersTableProps = {
     role: RoleName;
@@ -93,139 +94,115 @@ export default function UsersTable({
                     onMutateSuccess={onMutateSuccess}
                     setShowPopUp={setShowViewPopUp}
                 /> : null}
-            <div className={styles.tableContent}>
-                <table className={styles.main}>
-                    <>
-                        <thead>
-                            <tr>
-                                {
-                                    permissions.has('user_delete') ?
-                                        <th className={css(styles.columnSelect, styles.column)}>
-                                            <input type='checkbox'
-                                                checked={checkAll}
-                                                onChange={handleSelectAll} />
-                                        </th>
-                                        : null
-                                }
-                                <th className={css(styles.column, styles.medium)}>
-                                    {language?.header.shortcode}
-                                </th>
-                                <th className={css(styles.column, styles.medium)}>{language?.header.name}</th>
-                                {role === 'student' ?
-                                    <th className={css(styles.column, styles.medium)}>{language?.header.class}</th>
-                                    : role === 'teacher' ?
-                                        <th className={css(styles.column, styles.medium)}>{language?.header.faculty}</th>
-                                        : null}
-                                <th className={css(styles.column, styles.medium)}>{language?.header.email}</th>
-                                <th className={css(styles.column, styles.medium)}>{language?.header.address}</th>
-                                <th className={css(styles.column, styles.medium)}>
-                                    {language?.header.status}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+
+            <Card className="h-full w-full overflow-scroll">
+                <div className="overflow-x-auto rounded border border-gray-300 shadow-sm">
+                    <table className="min-w-full divide-y-2 divide-gray-200">
+                        <thead className="ltr:text-left rtl:text-right">
+                        <tr className="*:font-medium *:text-gray-900">
                             {
-                                data ?
-                                    data.data.map(user => {
-                                        return (
-                                            <tr key={user.id}
-                                                onClick={(e) => {
-                                                    handleViewUser(user.id, e);
-                                                }}
-                                            >
-                                                {
-                                                    permissions.has('user_delete') ?
-                                                        <td className={css(styles.column, styles.small, styles.columnSelect)}>
-                                                            <input type='checkbox' />
-                                                        </td>
-                                                        : null
-                                                }
-                                                <td className={css(styles.column, styles.medium)}>
-                                                    {user.shortcode}
-                                                </td>
-                                                <td className={css(
-                                                    styles.column,
-                                                    styles.large,
-                                                    styles.columnContentName,
-                                                    user.gender == 'male' ? styles.male : styles.female
-                                                )
-                                                }>
-                                                    {user.gender == 'male' ? <GiMale /> : <GiFemale />}
-                                                    {languageUtils.getFullName(user.firstName, user.lastName)}
-                                                </td>
-                                                {
-                                                    role === 'student' ?
-                                                        <td className={css(styles.column, styles.medium)}>
-                                                            {user.schoolClass?.name}
-                                                        </td>
-                                                        : role === 'teacher' ?
-                                                            <td className={css(styles.column, styles.medium)}>
-                                                                {user.faculty?.name}
-                                                            </td>
-                                                            : null
-                                                }
-                                                <td className={css(styles.column, styles.medium)}>{user.email}</td>
-                                                <td className={css(styles.column, styles.medium)}>{user.address}</td>
-                                                <td className={css(styles.column, styles.columnContentStatus, styles.small)}>
-                                                    {
-                                                        user.isActive
-                                                            ?
-                                                            <StatusBadge color='green' content={language?.status.active} />
-                                                            : <StatusBadge color='red' content={language?.status.inactive} />
-                                                    }
-                                                </td>
-                                            </tr>
-                                        );
-                                    }) : null
+                                permissions.has('user_delete') ?
+                                    <th className="px-3 py-2 whitespace-nowrap">
+                                        <input type='checkbox'
+                                               checked={checkAll}
+                                               onChange={handleSelectAll} />
+                                    </th>
+                                    : null
                             }
+                            <th className="px-3 py-2 whitespace-nowrap">{language?.header.shortcode}</th>
+                            <th className="px-3 py-2 whitespace-nowrap">{language?.header.name}</th>
+                            {/*<th className="px-3 py-2 whitespace-nowrap">*/}
+                            {/*    {role === 'student' ? language?.header.class : language?.header.faculty}*/}
+                            {/*</th>*/}
+                            <th className="px-3 py-2 whitespace-nowrap">{language?.header.email}</th>
+                            <th className="px-3 py-2 whitespace-nowrap">{language?.header.address}</th>
+                            <th className="px-3 py-2 whitespace-nowrap">{language?.header.status}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody className="divide-y divide-gray-200">
+                        {
+                            data?.data?.map(user => {
+                                return (
+                                    <tr key={user.id}
+                                        className="*:text-gray-900 *:first:font-medium"
+                                        onClick={(e) => {
+                                            handleViewUser(user.id, e);
+                                        }}>
+                                        {
+                                            permissions.has('user_delete') ?
+                                                <td className="px-3 py-2 whitespace-nowrap">
+                                                    <input type='checkbox' />
+                                                </td>
+                                            : null
+                                        }
+                                        <td className="px-3 py-2 whitespace-nowrap">{user.shortcode}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap">
+                                            {user.gender == 'male' ? <GiMale /> : <GiFemale />}
+                                            {languageUtils.getFullName(user.firstName, user.lastName)}
+                                        </td>
+                                        {/*<td className="px-3 py-2 whitespace-nowrap">*/}
+                                        {/*    {role === 'student' ? user.schoolClass?.name : user.faculty?.name}*/}
+                                        {/*</td>*/}
+                                        <td className="px-3 py-2 whitespace-nowrap">{user.email}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap">{user.address}</td>
+                                        <td className="px-3 py-2 whitespace-nowrap">
+                                            <Switch checked={user.isActive}/>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
                         </tbody>
-                    </>
-                </table>
-                {
-                    data ?
-                        <div className={styles.tableFooter}>
+                    </table>
+                </div>
+                <div className={styles.tableContent}>
+                    {
+                        data ?
+                            <div className={styles.tableFooter}>
                             <span>
                                 {data.from} - {data.to} / {data.total}
                             </span>
-                            <div className={styles.tableLinks}>
-                                {
-                                    <div className={styles.linkContent}>
-                                        {data.links.map(link => {
-                                            if (isNaN(Number(link.label))) return (
-                                                <button key={role + link.label}
-                                                    className={styles.nextPrevious}
-                                                    onClick={() => {
-                                                        if (!link.url) return;
-                                                        const url = new URL(link.url);
-                                                        searchParams.set('page', url.searchParams.get('page') || '1');
-                                                        setSearchParams(searchParams);
-                                                    }}
-                                                >
-                                                    {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                                </button>
-                                            );
-                                            return (
-                                                <button key={role + link.label} className={
-                                                    css(
-                                                        appStyles.button,
-                                                        !link.active ? styles.inactive : ''
-                                                    )
-                                                }
-                                                    onClick={() => {
-                                                        if (!link.url) return;
-                                                        const url = new URL(link.url);
-                                                        searchParams.set('page', url.searchParams.get('page') || '1');
-                                                        setSearchParams(searchParams);
-                                                    }}
-                                                >{link.label}</button>
-                                            );
-                                        })}
-                                    </div>
-                                }
-                            </div>
-                        </div> : null
-                }
-            </div>
+                                <div className={styles.tableLinks}>
+                                    {
+                                        <div className={styles.linkContent}>
+                                            {data.links.map(link => {
+                                                if (isNaN(Number(link.label))) return (
+                                                    <button key={role + link.label}
+                                                            className={styles.nextPrevious}
+                                                            onClick={() => {
+                                                                if (!link.url) return;
+                                                                const url = new URL(link.url);
+                                                                searchParams.set('page', url.searchParams.get('page') || '1');
+                                                                setSearchParams(searchParams);
+                                                            }}
+                                                    >
+                                                        {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                    </button>
+                                                );
+                                                return (
+                                                    <button key={role + link.label} className={
+                                                        css(
+                                                            appStyles.button,
+                                                            !link.active ? styles.inactive : ''
+                                                        )
+                                                    }
+                                                            onClick={() => {
+                                                                if (!link.url) return;
+                                                                const url = new URL(link.url);
+                                                                searchParams.set('page', url.searchParams.get('page') || '1');
+                                                                setSearchParams(searchParams);
+                                                            }}
+                                                    >{link.label}</button>
+                                                );
+                                            })}
+                                        </div>
+                                    }
+                                </div>
+                            </div> : null
+                    }
+                </div>
+            </Card>
         </>
     );
 }

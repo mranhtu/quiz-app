@@ -20,6 +20,7 @@ import css from '~utils/css';
 import CreateQuestion from './components/CreateQuestion';
 import ImportQuestions from './components/ImportQuestions';
 import ViewQuestion from './components/ViewQuestion';
+import dateFormat from "~utils/date-format.ts";
 
 export default function Questions() {
     const { state } = useLocation() as { state: SubjectDetail | null; };
@@ -31,9 +32,10 @@ export default function Questions() {
     const [showViewPopUp, setShowViewPopUp] = useState(false);
     const [showImportPopUp, setShowImportPopUp] = useState(false);
     const queryDebounce = useDebounce(searchQuery);
-    const { permissions, appTitle } = useAppContext();
+    const { permissions, appTitle, appLanguage } = useAppContext();
     const { id } = useParams();
     const language = useLanguage('page.questions');
+
     const queryData = useQuery({
         queryKey: [
             QUERY_KEYS.PAGE_QUESTIONS,
@@ -187,6 +189,7 @@ export default function Questions() {
                                                 <p className={styles.content} dangerouslySetInnerHTML={{ __html: item.content }} >
                                                     {/* {item.content} */}
                                                 </p>
+                                                <span>{dateFormat.toDateTimeString(new Date(item.createdAt))}</span>
                                             </div>
                                             <div className={styles.cardBottom}>
                                                 <AiOutlineQuestionCircle />

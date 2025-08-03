@@ -4,10 +4,11 @@ import Image from '@tiptap/extension-image';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useRef } from 'react';
-import { FaBold, FaImage, FaItalic, FaRedo, FaUndo } from 'react-icons/fa';
+import {FaBold, FaImage, FaItalic, FaList, FaListAlt, FaListOl, FaRedo, FaStrikethrough, FaUndo} from 'react-icons/fa';
 import { toast } from 'sonner';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
+import 'src/components/styles/TextEditerStyle.scss'
 
 type TextEditorProps = {
     name?: string;
@@ -30,7 +31,7 @@ export default function TextEditor({
             Image.configure({
                 allowBase64: true,
                 inline: true,
-                // HTMLAttributes: { class: styles.image }
+                // HTMLAttributes: { class: styles.imageContent }
             })
         ],
         content: defaultContent || null,
@@ -78,45 +79,84 @@ export default function TextEditor({
                         </textarea>
                         : null
                 }
-                <div
-                    className={
-                        css(
-                            styles.toolbarButton,
-                            editor.isActive('bold') ? styles.active : ''
-                        )
-                    }
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                >
-                    <FaBold />
-                </div>
-                <div
-                    className={
-                        css(
-                            styles.toolbarButton,
-                            editor.isActive('italic') ? styles.active : ''
-                        )
-                    }
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                >
-                    <FaItalic />
-                </div>
-                <div
-                    className={styles.toolbarButton}
-                    onClick={() => editor.chain().focus().undo().run()}
-                >
-                    <FaUndo />
-                </div>
-                <div
-                    className={styles.toolbarButton}
-                    onClick={() => editor.chain().focus().redo().run()}
-                >
-                    <FaRedo />
-                </div>
-                <div
-                    className={styles.toolbarButton}
-                    onClick={() => { imageInputRef.current?.click(); }}
-                >
-                    <FaImage />
+                <div className={styles.toolBarList}>
+                    <div
+                        className={
+                            css(
+                                styles.toolbarButton,
+                                editor.isActive('bold') ? styles.active : ''
+                            )
+                        }
+                        onClick={() => editor.chain().focus().toggleBold().run()}
+                    >
+                        <FaBold />
+                    </div>
+                    <div
+                        className={
+                            css(
+                                styles.toolbarButton,
+                                editor.isActive('italic') ? styles.active : ''
+                            )
+                        }
+                        onClick={() => editor.chain().focus().toggleItalic().run()}
+                    >
+                        <FaItalic />
+                    </div>
+
+                    <div
+                        className={
+                            css(
+                                styles.toolbarButton,
+                                editor.isActive('strike') ? styles.active : ''
+                            )
+                        }
+                        onClick={() => editor.chain().focus().toggleStrike().run()}
+                    >
+                        <FaStrikethrough />
+                    </div>
+
+                    <div
+                        className={
+                            css(
+                                styles.toolbarButton,
+                                editor.isActive('bulletList') ? styles.active : ''
+                            )
+                        }
+                        onClick={() => editor.chain().focus().toggleBulletList().run()}
+                    >
+                        <FaList />
+                    </div>
+
+                    <div
+                        className={
+                            css(
+                                styles.toolbarButton,
+                                editor.isActive('orderedList') ? styles.active : ''
+                            )
+                        }
+                        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                    >
+                        <FaListOl />
+                    </div>
+
+                    <div
+                        className={styles.toolbarButton}
+                        onClick={() => editor.chain().focus().undo().run()}
+                    >
+                        <FaUndo />
+                    </div>
+                    <div
+                        className={styles.toolbarButton}
+                        onClick={() => editor.chain().focus().redo().run()}
+                    >
+                        <FaRedo />
+                    </div>
+                    <div
+                        className={styles.toolbarButton}
+                        onClick={() => { imageInputRef.current?.click(); }}
+                    >
+                        <FaImage />
+                    </div>
                 </div>
             </div>
             <EditorContent editor={editor} className={styles.editorContent} />

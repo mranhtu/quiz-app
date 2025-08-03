@@ -14,6 +14,7 @@ import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import CreateSubject from './components/CreateSubject';
+import dateFormat from "~utils/date-format.ts";
 
 export default function Subjects() {
     const { permissions, appTitle } = useAppContext();
@@ -100,6 +101,9 @@ export default function Subjects() {
                                                 <p className={styles.content}>
                                                     {item.name}
                                                 </p>
+                                                <span className={styles.subTitle}>
+                                                    {dateFormat.formatDHMY(item.createdAt)}
+                                                </span>
                                             </div>
                                             <div className={styles.cardBottom}>
                                                 <LuBookOpenCheck />

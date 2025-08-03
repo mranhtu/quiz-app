@@ -18,6 +18,8 @@ import css from '~utils/css';
 import dateFormat from '~utils/date-format';
 import languageUtils from '~utils/language-utils';
 import ChangePassword from './components/ChangePassword';
+import { DatePicker } from 'antd';
+import dayjs from 'dayjs';
 
 export default function Profile() {
     const language = useLanguage('page.profile');
@@ -99,12 +101,12 @@ export default function Profile() {
                                 />
                             </div>
                             <div className={styles.wrapItem}>
-                                <label htmlFor='phone_number'>{language?.phoneNumber}</label>
+                                <label className={appStyles.required} htmlFor='last_name'>{language?.lastName}</label>
                                 <input
-                                    id='phone_number'
+                                    id='last_name'
                                     disabled={disabledUpdate}
-                                    defaultValue={queryData.data.user.phoneNumber || ''}
-                                    name='phone_number'
+                                    defaultValue={queryData.data.user.lastName}
+                                    name='last_name'
                                     className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
@@ -119,12 +121,12 @@ export default function Profile() {
                                 />
                             </div>
                             <div className={styles.wrapItem}>
-                                <label className={appStyles.required} htmlFor='last_name'>{language?.lastName}</label>
+                                <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                 <input
-                                    id='last_name'
+                                    id='phone_number'
                                     disabled={disabledUpdate}
-                                    defaultValue={queryData.data.user.lastName}
-                                    name='last_name'
+                                    defaultValue={queryData.data.user.phoneNumber || ''}
+                                    name='phone_number'
                                     className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
@@ -138,28 +140,28 @@ export default function Profile() {
                                     className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
-                            {queryData.data?.user.role.name === 'student' ?
-                                <div className={styles.wrapItem}>
-                                    <label className={appStyles.required} htmlFor='school_class'>{language?.class}</label>
-                                    <input
-                                        id='school_class'
-                                        disabled={disabledUpdate}
-                                        defaultValue={queryData.data.user.schoolClass?.shortcode || ''}
-                                        name='school_class'
-                                        className={css(appStyles.input, styles.inputItem)}
-                                    />
-                                </div> : queryData.data?.user.role.name === 'teacher'
-                                    ? <div className={styles.wrapItem}>
-                                        <label className={appStyles.required} htmlFor='faculty'>{language?.faculty}</label>
-                                        <input
-                                            id='faculty'
-                                            disabled={disabledUpdate}
-                                            defaultValue={queryData.data.user.faculty?.shortcode || ''}
-                                            name='faculty'
-                                            className={css(appStyles.input, styles.inputItem)}
-                                        />
-                                    </div> : null
-                            }
+                            {/*{queryData.data?.user.role.name === 'student' ?*/}
+                            {/*    <div className={styles.wrapItem}>*/}
+                            {/*        <label className={appStyles.required} htmlFor='school_class'>{language?.class}</label>*/}
+                            {/*        <input*/}
+                            {/*            id='school_class'*/}
+                            {/*            disabled={disabledUpdate}*/}
+                            {/*            defaultValue={queryData.data.user.schoolClass?.shortcode || ''}*/}
+                            {/*            name='school_class'*/}
+                            {/*            className={css(appStyles.input, styles.inputItem)}*/}
+                            {/*        />*/}
+                            {/*    </div> : queryData.data?.user.role.name === 'teacher'*/}
+                            {/*        ? <div className={styles.wrapItem}>*/}
+                            {/*            <label className={appStyles.required} htmlFor='faculty'>{language?.faculty}</label>*/}
+                            {/*            <input*/}
+                            {/*                id='faculty'*/}
+                            {/*                disabled={disabledUpdate}*/}
+                            {/*                defaultValue={queryData.data.user.faculty?.shortcode || ''}*/}
+                            {/*                name='faculty'*/}
+                            {/*                className={css(appStyles.input, styles.inputItem)}*/}
+                            {/*            />*/}
+                            {/*        </div> : null*/}
+                            {/*}*/}
                             <div className={styles.wrapItem}>
                                 <label className={appStyles.required} htmlFor=''>{language?.genders.gender}</label>
                                 <CustomSelect
@@ -170,7 +172,7 @@ export default function Profile() {
                                     }
                                     options={genderOptions}
                                     disabled={disabledUpdate}
-                                    className={styles.customSelect}
+                                    className={styles.customSelect + ` ${disabledUpdate ? 'disable' : ''}`}
                                 />
                             </div>
                             <div className={styles.wrapItem}>
@@ -185,15 +187,24 @@ export default function Profile() {
                             </div>
                             <div className={styles.wrapItem}>
                                 <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
-                                <input
-                                    defaultValue={dateFormat.toDateString(new Date(queryData.data.user.birthDate))}
-                                    max={dateFormat.toDateString(new Date())}
-                                    type='date'
-                                    id='birth_date'
-                                    name='birth_date'
-                                    disabled={disabledUpdate}
-                                    className={css(appStyles.input, styles.inputItem)}
-                                />
+                                {/*<input*/}
+                                {/*    defaultValue={dateFormat.toDateString(new Date(queryData.data.user.birthDate))}*/}
+                                {/*    max={dateFormat.toDateString(new Date())}*/}
+                                {/*    type='date'*/}
+                                {/*    id='birth_date'*/}
+                                {/*    name='birth_date'*/}
+                                {/*    disabled={disabledUpdate}*/}
+                                {/*    className={css(appStyles.input, styles.inputItem)}*/}
+                                {/*/>*/}
+                                <DatePicker defaultValue={dayjs(queryData.data.user.birthDate)}
+                                            id='birth_date'
+                                            name='birth_date'
+                                            max={dateFormat.toDateString(new Date())}
+                                            disabled={disabledUpdate}
+                                            style={{
+                                                height: "40px",
+                                                width: "100%"
+                                            }} />
                             </div>
                         </div>
                         {

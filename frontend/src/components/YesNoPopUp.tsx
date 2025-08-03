@@ -1,10 +1,10 @@
-import appStyles from '~styles/App.module.css';
 import styles from './styles/YesNoPopUp.module.css';
 
 import { useMutation } from '@tanstack/react-query';
 import { RxCross2 } from 'react-icons/rx';
 import css from '~utils/css';
 import Loading from './Loading';
+import {Button} from "antd";
 
 type YesNoPopUpProps = {
     message: string;
@@ -51,8 +51,7 @@ export default function YesNoPopUp({
                 <div className={styles.header}>
                     <div
                         className={styles.escButton}
-                        onClick={handleClosePopUp}
-                    >
+                        onClick={handleClosePopUp}>
                         <RxCross2 />
                     </div>
                 </div>
@@ -63,26 +62,22 @@ export default function YesNoPopUp({
                         </div>
                     </div>
                     <div className={styles.actionItems}>
-                        <button
-                            onClick={handleClosePopUp}
-                            className={
-                                css(
-                                    appStyles.actionItemWhiteBorderRed,
-                                    mutation.isPending ? styles.pending : ''
-                                )
-                            }>
+                        <Button type=""
+                                size='large'
+                                className={
+                                    css(mutation.isPending ? styles.pending : '')
+                                }
+                                onClick={handleClosePopUp}>
                             {langNo}
-                        </button>
-                        <button
-                            onClick={() => { mutation.mutate(); }}
-                            className={
-                                css(
-                                    appStyles.actionItemWhite,
-                                    mutation.isPending ? styles.pending : ''
-                                )
-                            }>
+                        </Button>
+                        <Button type="primary"
+                                size='large'
+                                className={
+                                    css(mutation.isPending ? styles.pending : '')
+                                }
+                                onClick={() => { mutation.mutate(); }}>
                             {langYes}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

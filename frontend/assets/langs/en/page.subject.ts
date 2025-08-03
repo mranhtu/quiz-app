@@ -10,5 +10,6 @@ export default {
     name: 'Name',
     shortcode: 'Shortcode',
     chapters: 'Chapters',
-    questions: 'Questions'
+    questions: 'Questions',
+    managerQuestion: 'Manager question'
 };
